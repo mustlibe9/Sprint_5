@@ -1,0 +1,5 @@
+TEST_USER_NAME = "TestUser"
+
+INCORRECT_SHORT_PASSWORD = "111"
+
+REGISTERED_CREDENTIALS = ("лилия_денисова_40qa_123@yandex.ru", "111111")
