@@ -3,39 +3,46 @@ from selenium.webdriver.support.wait import WebDriverWait
 import locators as locators
 
 
-def test_account_enter(driver, go_to_account_page_from_launch):
-    go_to_account_page_from_launch()
+class TestAccount:
 
-    assert "/account/profile" in driver.current_url
+    def test_account_enter(self, driver, go_to_account_page_from_launch):
+        go_to_account_page_from_launch()
 
+        assert "/account/profile" in driver.current_url
 
-def test_account_to_constructor(driver, go_to_account_page_from_launch):
-    go_to_account_page_from_launch()
+    def test_account_to_constructor(self, driver, go_to_account_page_from_launch):
+        go_to_account_page_from_launch()
 
-    driver.find_element(*locators.CONSTRUCTOR_LINK).click()
+        driver.find_element(*locators.CONSTRUCTOR_LINK).click()
 
-    constructor_header = WebDriverWait(driver, 3).until(
-        expected_conditions.visibility_of_element_located(locators.CONSTRUCTOR_HEADER)
-    )
+        constructor_header = WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located(
+                locators.CONSTRUCTOR_HEADER
+            )
+        )
 
-    assert constructor_header.is_displayed()
+        assert constructor_header.is_displayed()
 
+    def test_account_to_constructor_by_logo(
+        self, driver, go_to_account_page_from_launch
+    ):
+        go_to_account_page_from_launch()
 
-def test_account_to_constructor_by_logo(driver, go_to_account_page_from_launch):
-    go_to_account_page_from_launch()
+        driver.find_element(*locators.LOGO_LINK).click()
 
-    driver.find_element(*locators.LOGO_LINK).click()
+        constructor_header = WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located(
+                locators.CONSTRUCTOR_HEADER
+            )
+        )
 
-    constructor_header = WebDriverWait(driver, 3).until(
-        expected_conditions.visibility_of_element_located(locators.CONSTRUCTOR_HEADER)
-    )
+        assert constructor_header.is_displayed()
 
-    assert constructor_header.is_displayed()
+    def test_account_exit(self, driver, go_to_account_page_from_launch):
+        go_to_account_page_from_launch()
 
+        driver.find_element(*locators.LOGOUT_BUTTON).click()
 
-def test_account_exit(driver, go_to_account_page_from_launch):
-    go_to_account_page_from_launch()
-
-    driver.find_element(*locators.LOGOUT_BUTTON).click()
-
-    assert WebDriverWait(driver, 3).until(expected_conditions.url_contains("/login"))
+        assert WebDriverWait(driver, 3).until(
+            expected_conditions.url_contains("/login")
+        )

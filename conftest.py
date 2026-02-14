@@ -2,6 +2,8 @@ import pytest
 import random
 import string
 import locators
+import urls
+import data
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
@@ -10,7 +12,7 @@ from selenium.webdriver.support import expected_conditions
 @pytest.fixture
 def driver():
     driver = webdriver.Chrome()
-    driver.get("https://stellarburgers.education-services.ru/")
+    driver.get(urls.STELLAR_BURGERS_URL)
 
     yield driver
 
@@ -18,9 +20,9 @@ def driver():
 
 
 @pytest.fixture
-def login_on_enter_form(registered_credentials, driver):
+def login_on_enter_form(driver):
     def login():
-        email, password = registered_credentials
+        email, password = data.REGISTERED_CREDENTIALS
 
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located(
@@ -72,18 +74,3 @@ def test_email():
 def test_password():
     letters_and_digits = string.ascii_letters + string.digits
     return "".join(random.choice(letters_and_digits) for _ in range(6))
-
-
-@pytest.fixture
-def incorrect_short_password():
-    return "111"
-
-
-@pytest.fixture
-def test_user_name():
-    return "TestUser"
-
-
-@pytest.fixture
-def registered_credentials():
-    return ("лилия_денисова_40qa_123@yandex.ru", "111111")

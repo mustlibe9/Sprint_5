@@ -3,40 +3,40 @@ from selenium.webdriver.support.wait import WebDriverWait
 import locators as locators
 
 
-def test_constructor_buns_tab_positioning(driver):
+class TestConstructor:
 
-    driver.find_element(*locators.SAUCES_TAB).click()
+    def test_constructor_buns_tab_positioning(self, driver):
 
-    WebDriverWait(driver, 1).until(
-        expected_conditions.visibility_of_element_located(locators.SAUCES_HEADER)
-    )
+        driver.find_element(*locators.SAUCES_TAB).click()
 
-    driver.find_element(*locators.BUNS_TAB).click()
+        WebDriverWait(driver, 1).until(
+            expected_conditions.visibility_of_element_located(locators.SAUCES_HEADER)
+        )
 
-    buns_header = WebDriverWait(driver, 1).until(
-        expected_conditions.visibility_of_element_located(locators.BUNS_HEADER)
-    )
+        driver.find_element(*locators.BUNS_TAB).click()
 
-    assert buns_header.is_displayed()
+        buns_header = WebDriverWait(driver, 1).until(
+            expected_conditions.visibility_of_element_located(locators.BUNS_HEADER)
+        )
 
+        assert buns_header.is_displayed()
 
-def test_constructor_sauces_tab_positioning(driver):
+    def test_constructor_sauces_tab_positioning(self, driver):
 
-    driver.find_element(*locators.SAUCES_TAB).click()
+        driver.find_element(*locators.SAUCES_TAB).click()
 
-    sauces_header = WebDriverWait(driver, 1).until(
-        expected_conditions.visibility_of_element_located(locators.SAUCES_HEADER)
-    )
+        sauces_header = WebDriverWait(driver, 1).until(
+            expected_conditions.visibility_of_element_located(locators.SAUCES_HEADER)
+        )
 
-    assert sauces_header.is_displayed()
+        assert sauces_header.is_displayed()
 
+    def test_constructor_fillings_tab_positioning(self, driver):
 
-def test_constructor_fillings_tab_positioning(driver):
+        driver.find_element(*locators.FILLINGS_TAB).click()
 
-    driver.find_element(*locators.FILLINGS_TAB).click()
+        fillings_header = WebDriverWait(driver, 1).until(
+            expected_conditions.visibility_of_element_located(locators.FILLINGS_HEADER)
+        )
 
-    fillings_header = WebDriverWait(driver, 1).until(
-        expected_conditions.visibility_of_element_located(locators.FILLINGS_HEADER)
-    )
-
-    assert fillings_header.is_displayed()
+        assert fillings_header.is_displayed()
